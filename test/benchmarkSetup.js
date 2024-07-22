@@ -17,7 +17,7 @@ THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 */
-
+//  if (inObject instanceof Date) return new Date(o)
 function copyBuffer(cur) {
   if (cur instanceof Buffer) {
     return Buffer.from(cur)
@@ -177,6 +177,39 @@ export function clone3(value) {
     return ret
   }
 }
+
+export function clone3WithDates(value) {
+  if (typeof value !== 'object' || value === null) {
+    return value
+  } else if (Array.isArray(value)) {
+    return value.map((e) => (typeof e !== 'object' || e === null ? e : clone3WithDates(e)))
+  } else {
+    if (value instanceof Date) return new Date(value)
+    const ret = {}
+    for (const k in value) {
+      const v = value[k]
+      ret[k] = typeof v !== 'object' || v === null ? v : clone3WithDates(v)
+    }
+    return ret
+  }
+}
+
+export function clone3WithDatesStrings(value) {
+  if (typeof value !== 'object' || value === null) {
+    return value
+  } else if (Array.isArray(value)) {
+    return value.map((e) => (typeof e !== 'object' || e === null ? e : clone3WithDatesStrings(e)))
+  } else {
+    if (value instanceof Date) return value.toISOString()
+    const ret = {}
+    for (const k in value) {
+      const v = value[k]
+      ret[k] = typeof v !== 'object' || v === null ? v : clone3WithDatesStrings(v)
+    }
+    return ret
+  }
+}
+
 export function clone(arg) {
   if (typeof arg !== 'object') {
     return arg
@@ -204,6 +237,7 @@ export let MyObject = {
     stringify: 'JSON.stringify() method converts a JavaScript value to a JSON string....',
     parse: 'JSON.parse() method parses a JSON string...',
     array: [1, { str: 'str' }, 3, 4],
+    date: new Date(),
   },
 }
 

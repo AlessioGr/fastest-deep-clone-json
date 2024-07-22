@@ -6,7 +6,9 @@ import {
   copyv2,
   deepCopyObject,
   rfdc,
+  clone3WithDates,
   clone3,
+  clone3WithDatesStrings,
   MyHugeObject,
 } from './benchmarkSetup.js' // Adjust the path as necessary
 
@@ -41,6 +43,8 @@ function runBenchmarks(objectToCopy, numIterations) {
     { name: 'deepCopyObjectIterative', func: deepCloneJson },
     { name: 'copyv2', func: copyv2 },
     { name: 'clone3', func: clone3 },
+    { name: 'clone3WithDates', func: clone3WithDates },
+    { name: 'clone3WithDatesStrings', func: clone3WithDatesStrings },
     { name: 'rfdc', func: rfdc },
   ]
 

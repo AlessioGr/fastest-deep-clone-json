@@ -7,6 +7,10 @@ import {
   copyv2,
   deepCopyObject,
   MyHugeObject,
+  rfdc,
+  clone3WithDates,
+  clone3WithDatesStrings,
+  clone3,
 } from './benchmarkSetup.js'
 import { deepCloneJson } from '../dist/index.js'
 
@@ -24,6 +28,10 @@ function setupBenchmarks(suiteName, objectToCopy) {
     .add('copy', () => copy(objectToCopy))
     .add('clone', () => clone(objectToCopy))
     .add('copyv2', () => copyv2(objectToCopy))
+    .add('clone3', () => clone3(objectToCopy))
+    .add('clone3WithDates', () => clone3WithDates(objectToCopy))
+    .add('clone3WithDatesStrings', () => clone3WithDatesStrings(objectToCopy))
+    .add('rfdc', () => rfdc(objectToCopy))
     .on('cycle', function (event) {
       console.log(String(event.target))
     })
