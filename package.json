@@ -1,6 +1,6 @@
 {
   "name": "fastest-deep-clone-json",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fastest way to deep-clone JSON objects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
