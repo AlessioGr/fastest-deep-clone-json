@@ -52,5 +52,8 @@
   "files": [
     "dist/index.js",
     "dist/index.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "benchmark": "^2.1.4"
+  }
 }
