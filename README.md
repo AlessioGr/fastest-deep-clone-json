@@ -1,4 +1,4 @@
-This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations - see `deepCopyObjectIterative` here: https://www.measurethat.net/Benchmarks/ShowResult/534839.
+This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations.
 
 This package is ESM-only.
 
@@ -7,6 +7,20 @@ This package is ESM-only.
 - **Module count**: 1
 
 It avoids recursion in favor of a stack, in order to keep the memory usage low.
+
+## Performance comparison
+
+| Method                                                                                                            | Ops/sec   |
+|-------------------------------------------------------------------------------------------------------------------|-----------|
+| This package (iterative deep clone)                                                                               | 3.560.061 |
+| recursive deep clone                                                                                              | 3.476.448 |
+| [fastest-json-copy v2](https://github.com/streamich/fastest-json-copy/blob/main/lib/v2.js)                        | 1.523.427 |
+| JSON.stringify                                                                                                    | 1.465.516 |
+| [fastest-json-copy v1](https://github.com/streamich/fastest-json-copy/blob/main/lib/v1.js)                        | 1.320.249 |
+| [jsondiffpatch.clone](https://github.com/benjamine/jsondiffpatch/blob/master/packages/jsondiffpatch/src/clone.ts) | 1.245.459 |
+| structuredClone                                                                                                   | 789.100   |
+
+Run it yourself: https://www.measurethat.net/Benchmarks/ShowResult/534839 (this package is `deepCopyObjectIterative` in that comparison)
 
 ## Installation
 
@@ -22,7 +36,6 @@ npm install fastest-deep-clone-json
 ## Usage
 
 ```ts
-
 import { deepCloneJson } from 'fastest-deep-clone-json';
 
 const obj = { a: 1, b: { c: 2 } };
