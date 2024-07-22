@@ -10,9 +10,20 @@
     "test": "node test/index.js"
   },
   "devDependencies": {
+    "prettier": "^3.3.3",
     "typescript": "5.5.3"
   },
-  "keywords": ["deepclone", "deep-clone", "clone", "deep", "json", "clone", "deep-copy", "deepcopy", "copy"],
+  "keywords": [
+    "deepclone",
+    "deep-clone",
+    "clone",
+    "deep",
+    "json",
+    "clone",
+    "deep-copy",
+    "deepcopy",
+    "copy"
+  ],
   "author": "Alessio Gravili <alessio@gravili.de>",
   "license": "MIT",
   "bugs": {

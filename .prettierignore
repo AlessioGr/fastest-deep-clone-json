@@ -1,0 +1,7 @@
+.tmp
+**/.git
+**/.pnp.*
+**/dist/**
+**/node_modules
+tsconfig.json
+tsconfig.tsbuildinfo
