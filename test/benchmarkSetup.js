@@ -1,3 +1,79 @@
+/*
+Main deepCopyObject handling - from rfdc: https://github.com/davidmarkclements/rfdc/blob/master/index.js
+
+Copyright 2019 "David Mark Clements <david.mark.clements@gmail.com>"
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and
+to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+*/
+
+function copyBuffer(cur) {
+  if (cur instanceof Buffer) {
+    return Buffer.from(cur)
+  }
+
+  return new cur.constructor(cur.buffer.slice(), cur.byteOffset, cur.length)
+}
+
+const constructorHandlers = new Map()
+constructorHandlers.set(Date, (o) => new Date(o))
+constructorHandlers.set(Map, (o, fn) => new Map(cloneArray < any > (Array.from(o), fn)))
+constructorHandlers.set(Set, (o, fn) => new Set(cloneArray(Array.from(o), fn)))
+let handler = null
+
+function cloneArray(a, fn) {
+  const keys = Object.keys(a)
+  const a2 = new Array(keys.length)
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i]
+    const cur = a[k]
+    if (typeof cur !== 'object' || cur === null) {
+      a2[k] = cur
+    } else if (cur.constructor !== Object && (handler = constructorHandlers.get(cur.constructor))) {
+      a2[k] = handler(cur, fn)
+    } else if (ArrayBuffer.isView(cur)) {
+      a2[k] = copyBuffer(cur)
+    } else {
+      a2[k] = fn(cur)
+    }
+  }
+  return a2
+}
+
+export const rfdc = (o) => {
+  if (typeof o !== 'object' || o === null) return o
+  if (Array.isArray(o)) return cloneArray(o, deepCopyObject)
+  if (o.constructor !== Object && (handler = constructorHandlers.get(o.constructor))) {
+    return handler(o, deepCopyObject)
+  }
+  const o2 = {}
+  for (const k in o) {
+    if (Object.hasOwnProperty.call(o, k) === false) continue
+    const cur = o[k]
+    if (typeof cur !== 'object' || cur === null) {
+      o2[k] = cur
+    } else if (cur.constructor !== Object && (handler = constructorHandlers.get(cur.constructor))) {
+      o2[k] = handler(cur, deepCopyObject)
+    } else if (ArrayBuffer.isView(cur)) {
+      o2[k] = copyBuffer(cur)
+    } else {
+      o2[k] = deepCopyObject(cur)
+    }
+  }
+  return o2
+}
+
 export let deepCopyObject = (inObject) => {
   if (inObject instanceof Date) return inObject
 
