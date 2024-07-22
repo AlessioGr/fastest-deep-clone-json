@@ -1,4 +1,10 @@
-This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations - see `deepCopyObjectIterative` here: https://www.measurethat.net/Benchmarks/ShowResult/534839
+This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations - see `deepCopyObjectIterative` here: https://www.measurethat.net/Benchmarks/ShowResult/534839.
+
+This package is ESM-only.
+
+- **Dependencies**: 0
+- **Bundle size (minified and gzipped)**: 316 Bytes
+- **Module count**: 1
 
 It avoids recursion in favor of a stack, in order to keep the memory usage low.
 
