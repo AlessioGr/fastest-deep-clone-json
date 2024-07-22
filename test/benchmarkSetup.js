@@ -86,6 +86,21 @@ function cloneRegExp(re) {
   return new RegExp(regexMatch[1], regexMatch[2])
 }
 
+// https://github.com/rhysd/fast-json-clone/blob/main/index.ts
+export function clone3(value) {
+  if (typeof value !== 'object' || value === null) {
+    return value
+  } else if (Array.isArray(value)) {
+    return value.map((e) => (typeof e !== 'object' || e === null ? e : clone3(e)))
+  } else {
+    const ret = {}
+    for (const k in value) {
+      const v = value[k]
+      ret[k] = typeof v !== 'object' || v === null ? v : clone3(v)
+    }
+    return ret
+  }
+}
 export function clone(arg) {
   if (typeof arg !== 'object') {
     return arg

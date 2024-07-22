@@ -5,6 +5,7 @@ import {
   MyObject,
   copyv2,
   deepCopyObject,
+  clone3,
   MyHugeObject,
 } from './benchmarkSetup.js' // Adjust the path as necessary
 
@@ -38,6 +39,7 @@ function runBenchmarks(objectToCopy, numIterations) {
     { name: 'clone', func: clone },
     { name: 'deepCopyObjectIterative', func: deepCloneJson },
     { name: 'copyv2', func: copyv2 },
+    { name: 'clone3', func: clone3 },
   ]
 
   const results = functions.map((f) => ({
