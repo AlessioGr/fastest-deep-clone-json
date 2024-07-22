@@ -1,4 +1,4 @@
-This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations.
+This is the fastest deep-clone implementation for JSON objects - faster than `structuredClone`, `JSON.parse(JSON.stringify(obj))` and other implementations, according to www.measurethat.net.
 
 This package is ESM-only.
 
@@ -20,7 +20,9 @@ It avoids recursion in favor of a stack, in order to keep the memory usage low.
 | [jsondiffpatch.clone](https://github.com/benjamine/jsondiffpatch/blob/master/packages/jsondiffpatch/src/clone.ts) | 1.245.459 |
 | structuredClone                                                                                                   | 789.100   |
 
-Run it yourself: https://www.measurethat.net/Benchmarks/ShowResult/534839 (this package is `deepCopyObjectIterative` in that comparison)
+Run it yourself: https://www.measurethat.net/Benchmarks/ShowResult/534839 (this package is `deepCopyObjectIterative` in that comparison).
+
+When running the local benchmark, the results are very different and [jsondiffpatch.clone](https://github.com/benjamine/jsondiffpatch/blob/master/packages/jsondiffpatch/src/clone.ts) becomes the fastest.
 
 ## Installation
 
